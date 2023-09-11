@@ -3,376 +3,381 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-  <meta charset="UTF-8">
-  <title>ADDMORE Crawler</title>
-  <link href="image/addmore.png" rel="shortcut icon" type="image/x-icon">
-  <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-  <script src="bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>ADDMORE Crawler</title>
+    <link href="image/addmore.png" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+            crossorigin="anonymous"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body style="background-color: 	#E5E5E5">
 
 <h1 class="vmbTitle">ADDMORE CRAWLER</h1>
 <div class="container mainBoard">
-  <div class="row">
-    <div class="col-lg-6 keywordBox">
-      <div class="btn-group" style="margin-bottom: 10px;" role="group"
-           aria-label="...">
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#searchModal">도시명검색</button>
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#cityModal">도시명추가</button>
-        <button type="button" class="btn btn-warning"
-                onclick="resetKeyword()">초기화</button>
-        <button id="startCrawling" type="button" class="btn btn-warning"
-                onclick="startCrawling()">시작</button>
-        <button id="stopCrawling" type="button" class="btn btn-warning"
-                disabled="disabled" onclick="stopCrawling()">정지</button>
-      </div>
-      <ul id="keywordList" class="list-group">
-      </ul>
-      <div class="input-group">
-        <input id="ipt_keyword" type="text" class="form-control"
-               placeholder="Keyword를 입력하세요."> <span
-              class="input-group-btn">
+    <div class="row">
+        <div class="col-lg-6 keywordBox">
+            <div class="btn-group" style="margin-bottom: 10px;" role="group"
+                 aria-label="...">
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#searchModal">도시명검색
+                </button>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#cityModal">도시명추가
+                </button>
+                <button type="button" class="btn btn-warning"
+                        onclick="resetKeyword()">초기화
+                </button>
+                <button id="startCrawling" type="button" class="btn btn-warning"
+                        onclick="startCrawling()">시작
+                </button>
+                <button id="stopCrawling" type="button" class="btn btn-warning"
+                        disabled="disabled" onclick="stopCrawling()">정지
+                </button>
+            </div>
+            <ul id="keywordList" class="list-group">
+            </ul>
+            <div class="input-group">
+                <input id="ipt_keyword" type="text" class="form-control"
+                       placeholder="Keyword를 입력하세요."> <span
+                    class="input-group-btn">
 					<button class="btn btn-warning" type="button" onclick="addKeyword()">추가하기</button>
 				</span>
-      </div>
-    </div>
-    <div class="col-lg-6 statusBox">
-      <div class="btn-group" style="margin-bottom: 10px;" role="group"
-           aria-label="...">
-        <button type="button" class="btn btn-warning"
-                onclick="clearStatus()">상태창 초기화</button>
-      </div>
-      <ul id="currentStatus" class="list-unstyled currentStatus">
+            </div>
+        </div>
+        <div class="col-lg-6 statusBox">
+            <div class="btn-group" style="margin-bottom: 10px;" role="group"
+                 aria-label="...">
+                <button type="button" class="btn btn-warning"
+                        onclick="clearStatus()">상태창 초기화
+                </button>
+            </div>
+            <ul id="currentStatus" class="list-unstyled currentStatus">
 
-      </ul>
-    </div>
-    <div class="col-lg-12">
-      <div class="table-responsive table--no-card h-300-scroll">
-        <table class="table table-borderless table-striped table-earning">
-          <colgroup>
-            <col width="120px"></col>
-            <col width="100px"></col>
-            <col width="100px"></col>
-            <col width="300px"></col>
-            <col style="flex:1"></col>
-          </colgroup>
-          <thead>
-          <tr>
-            <th style="text-align: center">상호명</th>
-            <th>업종</th>
-            <th>전화번호</th>
-            <th>주소</th>
-            <th>홈페이지</th>
-          </tr>
-          </thead>
-          <tbody id="resultTableBody">
+            </ul>
+        </div>
+        <div class="col-lg-12">
+            <div class="table-responsive table--no-card h-300-scroll">
+                <table class="table table-borderless table-striped table-earning">
+                    <colgroup>
+                        <col width="120px"></col>
+                        <col width="100px"></col>
+                        <col width="100px"></col>
+                        <col width="300px"></col>
+                        <col style="flex:1"></col>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th style="text-align: center">상호명</th>
+                        <th>업종</th>
+                        <th>전화번호</th>
+                        <th>주소</th>
+                        <th>홈페이지</th>
+                    </tr>
+                    </thead>
+                    <tbody id="resultTableBody">
 
-          <tr class="tr-shadow">
-            <td colspan="10" style="text-align: center">조회된 데이터가 없습니다.</td>
-          </tr>
+                    <tr class="tr-shadow">
+                        <td colspan="10" style="text-align: center">조회된 데이터가 없습니다.</td>
+                    </tr>
 
-          </tbody>
-        </table>
-      </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <div class="modal" id="searchModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="background: #44A6CF">
-        <h5 class="modal-title" style="float:left;color:white">지역별 검색용 Keyword 추가</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float:right;">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <input id="cityKeyword" type="text" class="input-control" placeholder="키워드를 입력하세요." style="width:100%; margin:auto">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-warning" onclick="searchUsingCityList()">시작</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-      </div>
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #44A6CF">
+                <h5 class="modal-title" style="float:left;color:white">지역별 검색용 Keyword 추가</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float:right;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="cityKeyword" type="text" class="input-control" placeholder="키워드를 입력하세요."
+                       style="width:100%; margin:auto">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" onclick="searchUsingCityList()">시작</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <div class="modal" id="cityModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="background: #44A6CF">
-        <h5 class="modal-title" style="float:left;color:white">도시명 추가</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float:right;">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <input id="cityName" type="text" class="input-control" placeholder="도시명을 입력하세요." style="width:100%; margin:auto">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-warning" onclick="addCity()">추가하기</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-      </div>
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #44A6CF">
+                <h5 class="modal-title" style="float:left;color:white">도시명 추가</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float:right;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="cityName" type="text" class="input-control" placeholder="도시명을 입력하세요."
+                       style="width:100%; margin:auto">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" onclick="addCity()">추가하기</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <script>
-  var stopFlag = false;
+    window.stopFlag = false;
 
-  function addKeyword(e) {
-    var ipt_keyword = $("#ipt_keyword");
-    var currentKeyword = ipt_keyword.val().trim();
-    var keywordList = $("#keywordList");
-    if(currentKeyword === "") {
-      alert("keyword를 입력하세요.");
-      ipt_keyword.value = "";
-      return;
+    function addKeyword(e) {
+        var ipt_keyword = $("#ipt_keyword");
+        var currentKeyword = ipt_keyword.val().trim();
+        var keywordList = $("#keywordList");
+        if (currentKeyword === "") {
+            alert("keyword를 입력하세요.");
+            ipt_keyword.value = "";
+            return;
+        }
+
+        if (localStorage.getItem("keywordList") == null || localStorage.getItem("keywordList") == undefined) {
+            var arr = [currentKeyword];
+            localStorage.setItem("keywordList", JSON.stringify(arr));
+            var li = $('<li class="list-group-item clearfix"><span>' + currentKeyword + '</span><button class="btn btn-default btn-xs pull-right remove-item" onclick="removeKeyword(' + 0 + ')">'
+                + '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></li>');
+            $('#keywordList').append(li);
+        } else {
+            var arr = JSON.parse(localStorage.getItem("keywordList"));
+            arr[arr.length] = currentKeyword;
+            localStorage.setItem("keywordList", JSON.stringify(arr));
+            var li = $('<li class="list-group-item clearfix"><span>' + currentKeyword + '</span><button class="btn btn-default btn-xs pull-right remove-item">'
+                + '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></li>');
+            $('#keywordList').append(li);
+        }
+
+        ipt_keyword.val("");
+        $("#keywordList").scrollTop($("#keywordList")[0].scrollHeight);
     }
 
-    if(localStorage.getItem("keywordList") == null || localStorage.getItem("keywordList") == undefined) {
-      var arr = [currentKeyword];
-      localStorage.setItem("keywordList", JSON.stringify(arr));
-      var li = $('<li class="list-group-item clearfix"><span>'+currentKeyword+'</span><button class="btn btn-default btn-xs pull-right remove-item" onclick="removeKeyword('+0+')">'
-              +'<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></li>');
-      $('#keywordList').append(li);
-    } else {
-      var arr = JSON.parse(localStorage.getItem("keywordList"));
-      arr[arr.length] = currentKeyword;
-      localStorage.setItem("keywordList", JSON.stringify(arr));
-      var li = $('<li class="list-group-item clearfix"><span>'+currentKeyword+'</span><button class="btn btn-default btn-xs pull-right remove-item">'
-              +'<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></li>');
-      $('#keywordList').append(li);
+    function addKeywordFromLocalStorage(keyword) {
+        var li = $('<li class="list-group-item clearfix"><span>' + keyword + '</span><button class="btn btn-default btn-xs pull-right remove-item">'
+            + '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></li>');
+        $('#keywordList').append(li);
     }
 
-    ipt_keyword.val("");
-    $("#keywordList").scrollTop($("#keywordList")[0].scrollHeight);
-  }
-
-  function addKeywordFromLocalStorage(keyword) {
-    var li = $('<li class="list-group-item clearfix"><span>'+keyword+'</span><button class="btn btn-default btn-xs pull-right remove-item">'
-            +'<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></li>');
-    $('#keywordList').append(li);
-  }
-
-  function resetKeyword() {
-    document.querySelector("#keywordList").innerHTML = "";
-  }
-
-  function clearStatus() {
-    document.querySelector(".currentStatus").innerText ="";
-  }
-
-  function stopCrawling() {
-    if(stopFlag) {
-      alert("이미 종료 대기 상태 입니다.");
-      return;
-    }
-    alert("다음 키워드부터 크롤링이 종료됩니다.");
-    setStopSignal(true);
-  }
-
-  function setStopSignal(flag) {
-    stopFlag = flag;
-  }
-
-  function startCrawling() {
-    var me = this;
-    var keywordList = $("#keywordList")[0];
-    var currentStatus = $("#currentStatus")[0];
-    var startCrawlingBtn = document.querySelector("#startCrawling");
-    var stopCrawlingBtn = document.querySelector("#stopCrawling");
-    startCrawlingBtn.disabled = true;
-    stopCrawlingBtn.disabled = false;
-
-    if(keywordList.childElementCount === 0) {
-      startCrawlingBtn.disabled = false;
-      stopCrawlingBtn.disabled = true;
-      alert("keyword가 없습니다.");
-      return;
+    function resetKeyword() {
+        document.querySelector("#keywordList").innerHTML = "";
     }
 
-    if(stopFlag) {
-      alert("검색을 종료합니다.")
-      startCrawlingBtn.disabled = false;
-      stopCrawlingBtn.disabled = true;
-      setStopSignal(false);
-      return;
+    function clearStatus() {
+        document.querySelector(".currentStatus").innerText = "";
     }
 
-    var keyword = keywordList.childNodes[0].children[0].innerText;
-    keywordList.removeChild(keywordList.children[0]);
+    function stopCrawling() {
+        if (window.stopFlag) {
+            alert("이미 종료 대기 상태 입니다.");
+            return;
+        }
+        alert("다음 키워드부터 크롤링이 종료됩니다.");
+        setStopSignal(true);
+    }
 
-    var li = document.createElement("li");
-    li.classList.add("list-group-item");
-    li.classList.add("clearfix");
+    function setStopSignal(flag) {
+        window.stopFlag = flag;
+    }
 
-    var span = document.createElement("span");
-    span.innerText = keyword;
+    function startCrawling() {
+        var me = this;
+        var keywordList = $("#keywordList")[0];
+        var currentStatus = $("#currentStatus")[0];
+        var startCrawlingBtn = document.querySelector("#startCrawling");
+        var stopCrawlingBtn = document.querySelector("#stopCrawling");
+        startCrawlingBtn.disabled = true;
+        stopCrawlingBtn.disabled = false;
 
-    var button = document.createElement("button");
-    button.classList.add("btn");
-    button.classList.add("btn-default");
-    button.classList.add("btn-xs");
-    button.classList.add("pull-right");
-    button.classList.add("remove-item");
+        if (keywordList.childElementCount === 0) {
+            startCrawlingBtn.disabled = false;
+            stopCrawlingBtn.disabled = true;
+            alert("keyword가 없습니다.");
+            return;
+        }
 
-    var icon = document.createElement("span");
-    icon.classList.add("glyphicon");
-    icon.classList.add("glyphicon-remove");
-    icon.setAttribute("aria-hidden",true);
-    button.appendChild(icon);
+        if (window.stopFlag) {
+            alert("검색을 종료합니다.")
+            startCrawlingBtn.disabled = false;
+            stopCrawlingBtn.disabled = true;
+            setStopSignal(false);
+            return;
+        }
 
-    li.appendChild(span);
-    li.appendChild(button);
-    keywordList.appendChild(li);
+        var keyword = keywordList.childNodes[0].children[0].innerText;
+        keywordList.removeChild(keywordList.children[0]);
+
+        var li = document.createElement("li");
+        li.classList.add("list-group-item");
+        li.classList.add("clearfix");
+
+        var span = document.createElement("span");
+        span.innerText = keyword;
+
+        var button = document.createElement("button");
+        button.classList.add("btn");
+        button.classList.add("btn-default");
+        button.classList.add("btn-xs");
+        button.classList.add("pull-right");
+        button.classList.add("remove-item");
+
+        var icon = document.createElement("span");
+        icon.classList.add("glyphicon");
+        icon.classList.add("glyphicon-remove");
+        icon.setAttribute("aria-hidden", true);
+        button.appendChild(icon);
+
+        li.appendChild(span);
+        li.appendChild(button);
+        keywordList.appendChild(li);
 
 
-    var li = document.createElement("li");
-    li.innerText = keyword +"로 검색을 시작합니다.";
+        var li = document.createElement("li");
+        li.innerText = keyword + "로 검색을 시작합니다.";
 
-    currentStatus.appendChild(li);
+        currentStatus.appendChild(li);
 
-    fetch("/startCrawling", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({'keyword':keyword}),
-    })
-            .then(response=>response.json())
-            .then(function(data){
-              me.drawGrid(data.list);
+        fetch("/startCrawling", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({'keyword': encodeURIComponent(keyword)}),
+        })
+            .then(response => response.json())
+            .then(function (data) {
+                me.drawGrid(data.list);
             });
-  }
-
-  function drawGrid(list) {
-    var me = this;
-    var tbody = $("#resultTableBody");
-    var currentStatus = $("#currentStatus");
-    tbody.html('');
-    if(list.length===0) {
-      var emptyList = $('<tr><td colspan="6" align="center">해당 키워드로 검색된 데이터가 없습니다.</td></tr>');
-      tbody.append(emptyList);
-
-      var li = $('<li></li>');
-      li.text(list.length+"개의 데이터 검색 완료");
-      currentStatus.append(li);
-
-      setTimeout(function() {
-        me.startCrawling();
-      },3000);
-      return;
     }
 
+    function drawGrid(list) {
+        var me = this;
+        var tbody = $("#resultTableBody");
+        var currentStatus = $("#currentStatus");
+        tbody.html('');
+        if (list === null || list.length === 0) {
+            var emptyList = $('<tr><td colspan="6" align="center">해당 키워드로 검색된 데이터가 없습니다.</td></tr>');
+            tbody.append(emptyList);
 
-    var li = document.createElement("li");
-    var li = $('<li></li>');
-    li.text(list.length+"개의 데이터 검색 완료");
-    currentStatus.append(li);
+            var li = $('<li></li>');
+            li.text(list.length + "개의 데이터 검색 완료");
+            currentStatus.append(li);
 
-    for(var i = 0; i<list.length; i++) {
+            setTimeout(function () {
+                me.startCrawling();
+            }, 5000);
+            return;
+        }
 
-      var tr = $('<tr></tr>');
+        var li = $('<li></li>');
+        li.text(list.length + "개의 데이터 검색 완료");
+        currentStatus.append(li);
 
-      var name = $('<td align="center"></td>');
-      name.text(list[i].name);
-      tr.append(name);
-      var category = $('<td></td>');
-      if( list[i].category != undefined ) {
-        category.text(list[i].category.join(","));
-      } else {
-        category.text('카테고리 없음.');
-      }
-      tr.append(category);
-      var tel = $('<td></td>');
-      tel.text(list[i].tel);
-      tr.append(tel);
-      var addr = $('<td></td>');
-      addr.text(list[i].address);
-      tr.append(addr);
-      var homePage = $('<td><div style="text-overflow: ellipsis; overflow:hidden; white-space:no-wrap; max-width:450px;"></div></td>');
-      homePage.text(list[i].homePage);
-      tr.append(homePage);
-      tbody.append(tr);
+        for (var i = 0; i < list.length; i++) {
+
+            var tr = $('<tr></tr>');
+
+            var name = $('<td align="center"></td>');
+            name.text(list[i].name);
+            tr.append(name);
+            var category = $('<td></td>');
+            if (list[i].category != undefined) {
+                category.text(list[i].category.join(","));
+            } else {
+                category.text('카테고리 없음.');
+            }
+            tr.append(category);
+            var tel = $('<td></td>');
+            tel.text(list[i].tel);
+            tr.append(tel);
+            var addr = $('<td></td>');
+            addr.text(list[i].address);
+            tr.append(addr);
+            var homePage = $('<td><div style="text-overflow: ellipsis; overflow:hidden; white-space:no-wrap; max-width:450px;"></div></td>');
+            homePage.text(list[i].homePage);
+            tr.append(homePage);
+            tbody.append(tr);
+        }
+
+        setTimeout(function () {
+            me.startCrawling();
+        }, 5000);
     }
 
-    setTimeout(function() {
-      me.startCrawling();
-    },3000);
-  }
+    function searchUsingCityList() {
+        var keyword = $('#cityKeyword').val();
+        keyword = keyword.trim();
+        if (keyword == undefined || keyword == '') {
+            alert("keyword를 입력하세요.");
+            return;
+        }
 
-  function searchUsingCityList() {
-    var keyword = $('#cityKeyword').val();
-    keyword = keyword.trim();
-    if(keyword == undefined || keyword == '') {
-      alert("keyword를 입력하세요.");
-      return;
+        var cityList = JSON.parse(localStorage.getItem('cityList'));
+        for (var i = 0; i < cityList.length; i++) {
+            addKeywordFromLocalStorage(cityList[i] + ' ' + keyword);
+        }
+        $('#cityKeyword').val('');
+        $('#searchModal').modal('hide');
     }
 
-    var cityList = JSON.parse(localStorage.getItem('cityList'));
-    for(var i=0; i<cityList.length; i++) {
-      addKeywordFromLocalStorage(cityList[i]+' '+keyword);
-    }
-    $('#cityKeyword').val('');
-    $('#searchModal').modal('hide');
-  }
+    $("#ipt_keyword").keydown(function (e) {
+        if (e.keyCode === 13) {
+            addKeyword();
+        }
+    });
 
-  $("#ipt_keyword").keydown(function(e){
-    if(e.keyCode === 13) {
-      addKeyword();
-    }
-  });
-
-  function loadKeyword () {
-    /* var keywordList = $("#keywordList");
-    keywordList.html(''); */
-    var arr = JSON.parse(localStorage.getItem("keywordList"));
-    for(var i=0; i<arr.length; i++) {
-      addKeywordFromLocalStorage(arr[i], i);
-    }
-  }
-
-  function removeKeyword(index) {
-    var arr = JSON.parse(localStorage.getItem("keywordList"));
-    arr.splice(index,1);
-    localStorage.setItem("keywordList", JSON.stringify(arr));
-  }
-
-  function addCity() {
-    var cityName = $('#cityName').val();
-    cityName = cityName.trim();
-    if(cityName == undefined || cityName == '') {
-      alert('도시명을 입력하세요.');
-      return;
+    function loadKeyword() {
+        /* var keywordList = $("#keywordList");
+        keywordList.html(''); */
+        var arr = JSON.parse(localStorage.getItem("keywordList"));
+        for (var i = 0; i < arr.length; i++) {
+            addKeywordFromLocalStorage(arr[i], i);
+        }
     }
 
-    var cityList = JSON.parse(localStorage.getItem('cityList'));
-    cityList[cityList.length] = cityName;
-    localStorage.setItem('cityList', JSON.stringify(cityList));
-    alert('추가되었습니다.');
-    $('#cityModal').modal('hide');
-  }
-
-  $(document).on('click','.remove-item', function() {
-    $(this).parent().remove();
-  });
-
-  window.onload = function() {
-    document.querySelector("#keywordList").innerHTML = "";
-    var cityList = localStorage.getItem('cityList');
-    if(cityList == null || cityList == undefined) {
-      var city = '경북,포항시,포항시 남구,포항시 북구,경주시,김천시,안동시,구미시,영주시,영천시,상주시,문경시,경산시,군위군,의성군,청송군,영양군,영덕군,청도군,고령군,성주군,칠곡군,예천군,봉화군,울진군,울릉군,경남,창원시,창원시 의창구,창원시 성산구,창원시 마산합포구,창원시 마산회원구,창원시 진해구,진주시,통영시,사천시,김해시,밀양시,거제시,양산시,의령군,함안군,창녕군,고성군,남해군,하동군,산청군,함양군,거창군,합천군,충북,청주시,청주시 상당구,청주시 서원구,청주시 흥덕구,청주시 청원구,충주시,제천시,보은군,옥천군,영동군,증평군,진천군,괴산군,음성군,단양군,전남,목포시,여수시,순천시,나주시,광양시,담양군,곡성군,구례군,고흥군,보성군,화순군,장흥군,강진군,해남군,영암군,무안군,함평군,영광군,장성군,완도군,진도군,신안군,전북,전주시,전주시,완산구,전주시,덕진구,군산시,익산시,정읍시,남원시,김제시,완주군,진안군,무주군,장수군,임실군,순창군,고창군,부안군,충남,천안시,천안시,동남구,천안시,서북구,공주시,보령시,아산시,서산시,논산시,계룡시,당진시,금산군,부여군,서천군,청양군,홍성군,예산군,태안군,경기,수원시,수원시 장안구,수원시 권선구,수원시 팔달구,수원시 영통구,성남시,성남시 수정구,성남시 중원구,성남시 분당구,의정부시,안양시,안양시 만안구,안양시 동안구,부천시,광명시,평택시,동두천시,안산시,안산시 상록구,안산시 단원구,고양시,고양시 덕양구,고양시 일산동구,고양시 일산서구,과천시,구리시,남양주시,오산시,시흥시,군포시,의왕시,하남시,용인시,용인시 수지구,파주시,이천시,안성시,김포시,화성시,광주시,양주시,포천시,여주시,연천군,가평군,양평군,용인시,처인구,용인시,기흥구,강원,춘천시,원주시,강릉시,동해시,태백시,속초시,삼척시,홍천군,횡성군,영월군,평창군,정선군,철원군,화천군,양구군,인제군,고성군,양양군,부산강서구,사하구,서구,중구,동구,남구,영도구,사상구,북구,수영구,연제구,동래구,금정구,해운대구,기장군,기장읍,정관읍,장안읍,울산,남구,중구,북구,동구,상북면,두서면,두동면,삼남읍,언양읍,삼동면,웅촌면,온양읍,서생면,온산읍,청량읍,범서읍,대구,달서구,수성구,남구,북구,동구,남구,구지면,유가읍,논공읍,가창면,화원읍,다사읍,하빈면,서울,강서구,양천구,구로구,영등포구,동장국,금천구,관악구,마포구,은평구,서대문구,중구,용산구,종로구,강북구,도봉구,노원구,중랑구,동대문구,성동구,강남구,서초구,광진구,강동구,송파구,제주';
-      var cityArr = city.split(',');
-      localStorage.setItem('cityList', JSON.stringify(cityArr));
-    } else {
-      cityList = JSON.parse(cityList);
+    function removeKeyword(index) {
+        var arr = JSON.parse(localStorage.getItem("keywordList"));
+        arr.splice(index, 1);
+        localStorage.setItem("keywordList", JSON.stringify(arr));
     }
-  }
 
+    function addCity() {
+        var cityName = $('#cityName').val();
+        cityName = cityName.trim();
+        if (cityName == undefined || cityName == '') {
+            alert('도시명을 입력하세요.');
+            return;
+        }
 
+        var cityList = JSON.parse(localStorage.getItem('cityList'));
+        cityList[cityList.length] = cityName;
+        localStorage.setItem('cityList', JSON.stringify(cityList));
+        alert('추가되었습니다.');
+        $('#cityModal').modal('hide');
+    }
+
+    $(document).on('click', '.remove-item', function () {
+        $(this).parent().remove();
+    });
+
+    window.onload = function () {
+        document.querySelector("#keywordList").innerHTML = "";
+        var cityList = localStorage.getItem('cityList');
+        if (cityList == null || cityList == undefined) {
+            var city = '경북,포항시,포항시 남구,포항시 북구,경주시,김천시,안동시,구미시,영주시,영천시,상주시,문경시,경산시,군위군,의성군,청송군,영양군,영덕군,청도군,고령군,성주군,칠곡군,예천군,봉화군,울진군,울릉군,경남,창원시,창원시 의창구,창원시 성산구,창원시 마산합포구,창원시 마산회원구,창원시 진해구,진주시,통영시,사천시,김해시,밀양시,거제시,양산시,의령군,함안군,창녕군,고성군,남해군,하동군,산청군,함양군,거창군,합천군,충북,청주시,청주시 상당구,청주시 서원구,청주시 흥덕구,청주시 청원구,충주시,제천시,보은군,옥천군,영동군,증평군,진천군,괴산군,음성군,단양군,전남,목포시,여수시,순천시,나주시,광양시,담양군,곡성군,구례군,고흥군,보성군,화순군,장흥군,강진군,해남군,영암군,무안군,함평군,영광군,장성군,완도군,진도군,신안군,전북,전주시,전주시,완산구,전주시,덕진구,군산시,익산시,정읍시,남원시,김제시,완주군,진안군,무주군,장수군,임실군,순창군,고창군,부안군,충남,천안시,천안시,동남구,천안시,서북구,공주시,보령시,아산시,서산시,논산시,계룡시,당진시,금산군,부여군,서천군,청양군,홍성군,예산군,태안군,경기,수원시,수원시 장안구,수원시 권선구,수원시 팔달구,수원시 영통구,성남시,성남시 수정구,성남시 중원구,성남시 분당구,의정부시,안양시,안양시 만안구,안양시 동안구,부천시,광명시,평택시,동두천시,안산시,안산시 상록구,안산시 단원구,고양시,고양시 덕양구,고양시 일산동구,고양시 일산서구,과천시,구리시,남양주시,오산시,시흥시,군포시,의왕시,하남시,용인시,용인시 수지구,파주시,이천시,안성시,김포시,화성시,광주시,양주시,포천시,여주시,연천군,가평군,양평군,용인시,처인구,용인시,기흥구,강원,춘천시,원주시,강릉시,동해시,태백시,속초시,삼척시,홍천군,횡성군,영월군,평창군,정선군,철원군,화천군,양구군,인제군,고성군,양양군,부산강서구,사하구,서구,중구,동구,남구,영도구,사상구,북구,수영구,연제구,동래구,금정구,해운대구,기장군,기장읍,정관읍,장안읍,울산,남구,중구,북구,동구,상북면,두서면,두동면,삼남읍,언양읍,삼동면,웅촌면,온양읍,서생면,온산읍,청량읍,범서읍,대구,달서구,수성구,남구,북구,동구,남구,구지면,유가읍,논공읍,가창면,화원읍,다사읍,하빈면,서울,강서구,양천구,구로구,영등포구,동장국,금천구,관악구,마포구,은평구,서대문구,중구,용산구,종로구,강북구,도봉구,노원구,중랑구,동대문구,성동구,강남구,서초구,광진구,강동구,송파구,제주';
+            var cityArr = city.split(',');
+            localStorage.setItem('cityList', JSON.stringify(cityArr));
+        } else {
+            cityList = JSON.parse(cityList);
+        }
+    }
 </script>
-
 </body>
 </html>

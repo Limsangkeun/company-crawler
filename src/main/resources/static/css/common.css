@@ -35,6 +35,7 @@ body{
 	height: 350px;
 	background-color: #fefefe;
 	padding: 0 10px 0 10px !important;
+    overflow-y: scroll;
 }
 
 .keywordBox {
