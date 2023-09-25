@@ -40,9 +40,9 @@ public class CrawlerServiceImpl implements CrawlerService {
         this.statusRepository = statusRepository;
     }
 
-    private final String NAVER_MAP_HEADER_ADDR = "https://map.naver.com/p/api/search/allSearch?query=";
+    private final String NAVER_MAP_HEADER_ADDR = "https://map.naver.com/v5/api/search?query=";
 
-    private final String NAVER_MAP_TAIL_ADDR = "&type=all&searchCoord=&boundary=";
+    private final String NAVER_MAP_TAIL_ADDR = "&page=1&displayCount=300";
 
     public List<Map<String, Object>> getDataFromWeb(String keyword) {
         List<Map<String, Object>> list = null;
