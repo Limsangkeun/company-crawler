@@ -34,6 +34,17 @@ public class CrawlerServiceImpl implements CrawlerService {
     private CrawlerRepository crawlerRepository;
     private StatusRepository statusRepository;
 
+    private static final String[] userAgents = new String[]{
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Safari/537.36",
+            "Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.67",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 OPR/77.0.4054.277",
+            "Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.115 Mobile Safari/537.36",
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1"
+    };
+
     @Autowired
     public CrawlerServiceImpl(CrawlerRepository crawlerRepository, StatusRepository statusRepository) {
         this.crawlerRepository = crawlerRepository;
@@ -67,11 +78,13 @@ public class CrawlerServiceImpl implements CrawlerService {
             connection.setRequestProperty("Sec-Fetch-Dest", "empty");
             connection.setRequestProperty("Sec-Fetch-Mode", "cors");
             connection.setRequestProperty("sec-fetch-site", "same-origin");
-            connection.setRequestProperty("User-Agent", "'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36'");
+
+            String userAgent = changeUserAgent();
+            System.out.println("current User Agent : " + userAgent);
+            connection.setRequestProperty("User-Agent", userAgent);
             connection.setRequestProperty("Referer", "https://map.naver.com/p/search/"+keyword);
             connection.setRequestProperty("Cache-Control", "no-cache");
             connection.setRequestProperty("Pragma", "no-cache");
-
 
             StringBuilder sb = new StringBuilder();
             int responseCode = connection.getResponseCode();
@@ -174,5 +187,11 @@ public class CrawlerServiceImpl implements CrawlerService {
             e.printStackTrace();
         }
         return result;
+    }
+
+    private String changeUserAgent() {
+        double randomIdx = Math.random();
+        int currentIndex = randomIdx != 0.0 ? (int)((Math.random()*10) % 7) : 0;
+        return userAgents[currentIndex];
     }
 }
