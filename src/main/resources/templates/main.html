@@ -22,22 +22,22 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="btn-group mb-3" role="group">
-                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#searchModal">도시명검색</button>
-                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#cityModal">도시명추가</button>
-                <button type="button" class="btn" onclick="resetKeyword()">초기화</button>
-                <button id="startCrawling" type="button" class="btn" onclick="startCrawling()">시작</button>
-                <button id="stopCrawling" type="button" class="btn" disabled onclick="stopCrawling()">정지</button>
+                <button class="btn" data-bs-toggle="modal" data-bs-target="#searchModal">도시명검색</button>
+                <button class="btn" data-bs-toggle="modal" data-bs-target="#cityModal">도시명추가</button>
+                <button class="btn" onclick="resetKeyword()">초기화</button>
+                <button id="startCrawling" class="btn" onclick="startCrawling()">시작</button>
+                <button id="stopCrawling" class="btn" disabled onclick="stopCrawling()">정지</button>
             </div>
             <ul id="keywordList" class="list-group">
             </ul>
             <div class="input-group">
                 <input id="ipt_keyword" type="text" class="form-control" placeholder="Keyword를 입력하세요.">
-                <button class="btn" type="button" onclick="addKeyword()">추가하기</button>
+                <button class="btn" onclick="addKeyword()">추가하기</button>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="btn-group mb-3" role="group">
-                <button type="button" class="btn" onclick="clearStatus()">초기화</button>
+                <button class="btn" onclick="clearStatus()">초기화</button>
             </div>
             <ul id="currentStatus" class="list-unstyled currentStatus">
             </ul>
@@ -70,14 +70,14 @@
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title">지역별 검색용 Keyword 추가</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <input id="cityKeyword" type="text" class="form-control" placeholder="키워드를 입력하세요.">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn" onclick="searchUsingCityList()">시작</button>
-                <button type="button" class="btn" data-bs-dismiss="modal">취소</button>
+                <button class="btn" onclick="searchUsingCityList()">시작</button>
+                <button class="btn" data-bs-dismiss="modal">취소</button>
             </div>
         </div>
     </div>
@@ -88,14 +88,14 @@
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title">도시명 추가</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <input id="cityName" type="text" class="form-control" placeholder="도시명을 입력하세요.">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn" onclick="addCity()">추가하기</button>
-                <button type="button" class="btn" data-bs-dismiss="modal">취소</button>
+                <button class="btn" onclick="addCity()">추가하기</button>
+                <button class="btn" data-bs-dismiss="modal">취소</button>
             </div>
         </div>
     </div>

@@ -85,8 +85,32 @@ const startCrawling = () => {
     keywordList.removeChild(keywordList.firstElementChild);
 
     const li = document.createElement("li");
-    li.innerText = `${keyword}로 검색을 시작합니다.`;
-    currentStatus.appendChild(li);
+    li.classList.add("list-group-item");
+    li.classList.add("clearfix");
+
+    const span = document.createElement("span");
+    span.innerText = keyword;
+
+    const button = document.createElement("button");
+    button.classList.add("btn");
+    button.classList.add("btn-default");
+    button.classList.add("btn-xs");
+    button.classList.add("pull-right");
+    button.classList.add("remove-item");
+
+    const icon = document.createElement("span");
+    icon.classList.add("bi");
+    icon.classList.add("bi-x");
+    icon.setAttribute("aria-hidden","true");
+    button.appendChild(icon);
+
+    li.appendChild(span);
+    li.appendChild(button);
+    keywordList.appendChild(li);
+
+    const statusLi = document.createElement("li");
+    statusLi.innerText = `${keyword}로 검색을 시작합니다.`;
+    currentStatus.appendChild(statusLi);
 
     fetch("/startCrawling", {
         method: 'POST',
@@ -115,7 +139,7 @@ const drawGrid = list => {
         li.textContent = `${list.length}개의 데이터 검색 완료`;
         currentStatus.appendChild(li);
 
-        setTimeout(startCrawling, 5000);
+        setTimeout(startCrawling, 10000);
         return;
     }
 
